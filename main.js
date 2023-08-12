@@ -7,16 +7,25 @@ $(document).ready(function() {
     const followersElement = document.querySelector('#followers');
     const linkElement = document.querySelector('#link');
 
-    $.ajax('https://api.github.com/users/nanahmattos').done(function(json) {
 
-        nameElement.innerText = json.name;
-        usernameElement.innerText = json.login;
-        reposElement.innerText = json.public_repos;
-        linkElement.href = json.html_url;
-        avatarElement.src = json.avatar_url;
-        followingElement.innerText = json.following;
-        followersElement.innerText = json.followers;
-        linkElement.href = json.html_url;
+        fetch('https://api.github.com/users/nanahmattos').then(function(resposta){
+            return resposta.json();
+        })
+
+        .then(function(resposta){
+        nameElement.innerText = resposta.name;
+        usernameElement.innerText = resposta.login;
+        reposElement.innerText = resposta.public_repos;
+        linkElement.href = resposta.html_url;
+        avatarElement.src = resposta.avatar_url;
+        followingElement.innerText = resposta.following;
+        followersElement.innerText = resposta.followers;
+        linkElement.href = resposta.html_url;
+        })
+
+        .catch(function(erro){
+            alert("Tente novamente mais tarde");
+        })
+        
     })
-})
 
